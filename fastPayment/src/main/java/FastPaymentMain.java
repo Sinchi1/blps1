@@ -1,3 +1,3 @@
 
-public class fastPaymentMain {
+public class FastPaymentMain {
 }
