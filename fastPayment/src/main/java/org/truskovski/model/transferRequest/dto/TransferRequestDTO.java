@@ -7,5 +7,4 @@ public record TransferRequestDTO(
         String receiverPhone,
         BigDecimal amount,
         String targetBank
-
 ) {}
