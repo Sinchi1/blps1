@@ -12,7 +12,7 @@ public class SbpController {
 
     private final SbpService sbpService;
 
-    @PostMapping("/transfer")
+    @PostMapping("/v2/transfer")
     public void transfer(@RequestBody TransferRequestDTO request) {
         sbpService.processTransfer(request);
     }

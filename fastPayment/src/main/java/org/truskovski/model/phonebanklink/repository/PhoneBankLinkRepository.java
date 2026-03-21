@@ -9,4 +9,6 @@ public interface PhoneBankLinkRepository extends JpaRepository<PhoneBankLink, Lo
             String phone,
             String bankCode
     );
+
+    boolean existsByBankCode(String bankCode);
 }

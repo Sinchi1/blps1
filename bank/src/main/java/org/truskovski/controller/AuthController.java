@@ -5,7 +5,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.truskovski.model.login.dto.LoginDTO;
 import org.truskovski.model.register.dto.RegisterDTO;
-import org.truskovski.service.AuthService;
+import org.truskovski.service.security.AuthService;
 import org.truskovski.service.security.RegistrationService;
 
 @RestController

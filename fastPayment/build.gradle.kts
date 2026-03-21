@@ -37,5 +37,5 @@ dependencies {
 
 
 application {
-    mainClass.set("com.example.fastpayment.Main")
+    mainClass.set("org.truskovski.FastPaymentMain")
 }

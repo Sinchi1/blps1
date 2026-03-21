@@ -1,8 +1,10 @@
+import org.springframework.boot.gradle.tasks.bundling.BootJar
+
 val springCloudVersion by extra("2025.1.1")
 plugins {
     id("java")
-    id("org.springframework.boot") version "4.0.3" apply false
-    id("io.spring.dependency-management") version "1.1.7" apply false
+    id("org.springframework.boot") version "4.0.3"
+    id("io.spring.dependency-management") version "1.1.7"
     application
 }
 dependencyManagement {
@@ -21,6 +23,7 @@ repositories {
     mavenCentral()
 }
 
+
 dependencies {
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
     implementation("org.springframework.boot:spring-boot-starter-security")
@@ -38,5 +41,5 @@ dependencies {
 }
 
 application {
-    mainClass.set("com.example.bank.Main")
+    mainClass.set("org.truskovski.BankMain")
 }

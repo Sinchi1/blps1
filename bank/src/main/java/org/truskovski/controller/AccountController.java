@@ -1,6 +1,7 @@
 package org.truskovski.controller;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.truskovski.model.account.Account;
@@ -13,6 +14,7 @@ import java.math.BigDecimal;
 @RestController
 @RequestMapping("/accounts")
 @RequiredArgsConstructor
+@Slf4j
 public class AccountController {
 
     private final AccountService accountService;
@@ -30,6 +32,8 @@ public class AccountController {
 
     @PostMapping("/deposit")
     public ResponseEntity<String> deposit(@RequestBody DepositDTO request) {
+        log.info("deposit request: {}", request);
+
         if (request.amount().compareTo(BigDecimal.ZERO) < 0) {
             return ResponseEntity.badRequest().build();
         }

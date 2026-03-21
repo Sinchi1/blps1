@@ -23,6 +23,7 @@ public class SecurityConfig {
 
         http.authorizeHttpRequests(auth -> auth
                 .requestMatchers("/auth/**").permitAll()
+                .requestMatchers("/accounts/deposit").permitAll()
                 .anyRequest().authenticated()
         );
 

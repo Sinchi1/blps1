@@ -5,7 +5,7 @@ spring:
   application:
     name: sbp-service
   datasource:
-    url: ${POSTGRES_JDBC_URL:jdbc:postgresql://localhost:5433/fastPaymentSchema}
+    url: ${POSTGRES_JDBC_URL:jdbc:postgresql://localhost:54112/fastPaymentSchema}
     username: ${POSTGRES_USERNAME:postgres}
     password: ${POSTGRES_PASSWORD:postgres}
     driver-class-name: org.postgresql.Driver

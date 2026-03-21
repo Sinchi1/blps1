@@ -13,13 +13,9 @@ public class BankStorageService {
     private final PhoneBankLinkRepository linkRepo;
     private final BankParticipantRepository bankRepo;
 
-    public BankParticipant resolveBank(String phone, String targetBank) {
+    public BankParticipant resolveBank(String targetBank) {
 
-        boolean exists =
-                linkRepo.existsByPhoneAndBankCode(
-                        phone,
-                        targetBank
-                );
+        boolean exists = linkRepo.existsByBankCode(targetBank);
 
         if (!exists) {
             throw new RuntimeException(

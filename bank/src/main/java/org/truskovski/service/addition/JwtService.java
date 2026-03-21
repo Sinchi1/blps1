@@ -12,7 +12,7 @@ public class JwtService {
 
     private final SecretKey key =
             Keys.hmacShaKeyFor(
-                    "secretkey123".getBytes()
+                    "veryveryveryveryverysecretkey123".getBytes()
             );
 
     public String generate(String email) {
