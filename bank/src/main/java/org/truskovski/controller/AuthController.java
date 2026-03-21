@@ -30,13 +30,12 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<String> login(@RequestBody LoginDTO request) {
-
-        authService.login(
-                request.email(),
-                request.password()
+    public ResponseEntity<String> login(@RequestBody LoginDTO dto) {
+        String token = authService.login(
+                dto.email(),
+                dto.password()
         );
 
-        return ResponseEntity.ok("Login successful");
+        return ResponseEntity.ok(token);
     }
 }

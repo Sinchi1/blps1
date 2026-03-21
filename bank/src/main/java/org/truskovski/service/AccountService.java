@@ -23,11 +23,9 @@ public class AccountService {
 
     public void validateDebit(Long accountId, BigDecimal amount) {
         Account acc = get(accountId);
-
         if (acc.getStatus() != AccountStatus.ACTIVE) {
             throw new RuntimeException("Account not active");
         }
-
         if (acc.getBalance().compareTo(amount) < 0) {
             throw new RuntimeException("Insufficient funds");
         }
@@ -35,16 +33,14 @@ public class AccountService {
 
     @Transactional
     public void debit(Long accountId, BigDecimal amount) {
+        validateDebit(accountId, amount);          // ← ИСПРАВЛЕНО
         Account acc = get(accountId);
-
         acc.setBalance(acc.getBalance().subtract(amount));
-
         outboxService.saveEvent("DEBIT", acc.getId().toString());
     }
 
     public void validateCredit(Long accountId) {
         Account acc = get(accountId);
-
         if (acc.getStatus() != AccountStatus.ACTIVE) {
             throw new RuntimeException("Receiver blocked");
         }
@@ -52,10 +48,9 @@ public class AccountService {
 
     @Transactional
     public void credit(Long accountId, BigDecimal amount) {
+        validateCredit(accountId);                 // ← ИСПРАВЛЕНО
         Account acc = get(accountId);
-
         acc.setBalance(acc.getBalance().add(amount));
-
         outboxService.saveEvent("CREDIT", acc.getId().toString());
     }
 
