@@ -5,5 +5,7 @@ import java.math.BigDecimal;
 public record TransferRequestDTO(
         String senderPhone,
         String receiverPhone,
-        BigDecimal amount
+        BigDecimal amount,
+        String targetBank
+
 ) {}

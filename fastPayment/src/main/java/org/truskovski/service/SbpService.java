@@ -1,9 +1,10 @@
 package org.truskovski.service;
 
+import feign.Feign;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.truskovski.client.BankClient;
+import org.truskovski.model.bankparticipant.BankParticipant;
 import org.truskovski.model.transferRequest.dto.TransferRequestDTO;
 
 import java.util.Map;
@@ -12,15 +13,28 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class SbpService {
 
-    private final BankClient bankClient;
+    private final BankStorageService storage;
+    private final Feign.Builder feign;
 
-    public void processTransfer(TransferRequestDTO request) {
-        Map<String, Object> body = Map.of(
-                "phone", request.receiverPhone(),
-                "amount", request.amount()
+    public void processTransfer(TransferRequestDTO req) {
+
+        BankParticipant bank =
+                storage.resolveBank(
+                        req.receiverPhone(),
+                        req.targetBank()
+                );
+
+        BankClient client =
+                feign.target(
+                        BankClient.class,
+                        bank.getBaseUrl()
+                );
+
+        client.deposit(
+                Map.of(
+                        "phone", req.receiverPhone(),
+                        "amount", req.amount()
+                )
         );
-
-        // Если банк вернёт 4xx/5xx → Feign бросит FeignException → транзакция в банке-отправителе откатится
-        bankClient.deposit(body);
     }
 }

@@ -30,6 +30,8 @@ public class Transfer {
 
     private LocalDateTime createdAt;
 
+    private String targetBank;
+
     @PrePersist
     void init() {
         createdAt = LocalDateTime.now();

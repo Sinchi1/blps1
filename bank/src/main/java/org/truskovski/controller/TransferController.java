@@ -14,12 +14,17 @@ public class TransferController {
     private final TransferService transferService;
 
     @PostMapping
-    public ResponseEntity<String> transfer(@RequestBody TransferDTO request) {
+    public ResponseEntity<String> transfer(
+            @RequestBody TransferDTO request
+    ) {
+
         transferService.performTransfer(
                 request.senderPhone(),
                 request.receiverPhone(),
-                request.amount()
+                request.amount(),
+                request.targetBank()
         );
-        return ResponseEntity.ok("Transfer successful ✅");
+
+        return ResponseEntity.ok("Transfer initiated");
     }
 }

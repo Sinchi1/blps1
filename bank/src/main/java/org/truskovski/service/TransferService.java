@@ -21,18 +21,22 @@ public class TransferService {
     @Transactional
     public void performTransfer(String senderPhone,
                                 String receiverPhone,
-                                BigDecimal amount) {
+                                BigDecimal amount,
+                                String targetBank) {
+
+        if (senderPhone.equals(receiverPhone))
+            throw new RuntimeException("Self transfer");
 
         Account sender = accountService.getByPhone(senderPhone);
 
         accountService.validateDebit(sender.getId(), amount);
-
         accountService.debit(sender.getId(), amount);
 
         Transfer transfer = Transfer.builder()
                 .senderPhone(senderPhone)
                 .receiverPhone(receiverPhone)
                 .amount(amount)
+                .targetBank(targetBank)
                 .status(TransferStatus.DEBIT_DONE)
                 .build();
 
