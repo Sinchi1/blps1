@@ -4,8 +4,10 @@ import org.truskovski.model.enums.AccountStatus;
 
 import java.math.BigDecimal;
 
-public record AccountDTO(BigDecimal balance, String cardNumber,
-                         AccountStatus status,String phone,
+public record AccountDTO(BigDecimal balance,
+                         String cardNumber,
+                         AccountStatus status,
+                         String phone,
                          String fullName
 ) {
 }

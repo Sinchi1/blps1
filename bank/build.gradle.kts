@@ -27,6 +27,7 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-webmvc")
     implementation("org.springframework.cloud:spring-cloud-starter-openfeign")
     implementation("io.jsonwebtoken:jjwt:0.13.0")
+    implementation("javax.validation:validation-api:2.0.1.Final")
     compileOnly("org.projectlombok:lombok")
     runtimeOnly("org.postgresql:postgresql")
     annotationProcessor("org.projectlombok:lombok")

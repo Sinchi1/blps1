@@ -33,7 +33,7 @@ public class AccountService {
 
     @Transactional
     public void debit(Long accountId, BigDecimal amount) {
-        validateDebit(accountId, amount);          // ← ИСПРАВЛЕНО
+        validateDebit(accountId, amount);
         Account acc = get(accountId);
         acc.setBalance(acc.getBalance().subtract(amount));
         outboxService.saveEvent("DEBIT", acc.getId().toString());
@@ -44,14 +44,6 @@ public class AccountService {
         if (acc.getStatus() != AccountStatus.ACTIVE) {
             throw new RuntimeException("Receiver blocked");
         }
-    }
-
-    @Transactional
-    public void credit(Long accountId, BigDecimal amount) {
-        validateCredit(accountId);                 // ← ИСПРАВЛЕНО
-        Account acc = get(accountId);
-        acc.setBalance(acc.getBalance().add(amount));
-        outboxService.saveEvent("CREDIT", acc.getId().toString());
     }
 
     public Account get(Long id) {

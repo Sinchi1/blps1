@@ -20,16 +20,22 @@ public class Transfer {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column
     private String senderPhone;
+
+    @Column
     private String receiverPhone;
 
+    @Column
     private BigDecimal amount;
 
     @Enumerated(EnumType.STRING)
     private TransferStatus status;
 
+    @Column
     private LocalDateTime createdAt;
 
+    @Column
     private String targetBank;
 
     @PrePersist

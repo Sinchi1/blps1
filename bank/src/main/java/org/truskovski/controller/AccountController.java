@@ -30,19 +30,17 @@ public class AccountController {
 
     @PostMapping("/deposit")
     public ResponseEntity<String> deposit(@RequestBody DepositDTO request) {
+        if (request.amount().compareTo(BigDecimal.ZERO) < 0) {
+            return ResponseEntity.badRequest().build();
+        }
 
-        depositService.deposit(
-                request.phone(),
-                request.amount()
-        );
+        depositService.deposit(request.phone(), request.amount());
 
         return ResponseEntity.ok("Deposit successful");
     }
 
     @PostMapping("/debit")
-    public ResponseEntity<String> debit(@RequestParam Long accountId,
-                                        @RequestParam BigDecimal amount) {
-
+    public ResponseEntity<String> debit(@RequestParam Long accountId, @RequestParam BigDecimal amount) {
         accountService.debit(accountId, amount);
         return ResponseEntity.ok("Debited");
     }
