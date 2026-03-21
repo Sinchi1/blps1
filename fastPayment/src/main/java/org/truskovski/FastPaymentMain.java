@@ -1,8 +1,12 @@
+package org.truskovski;
 
-@SpringBoot
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
 public class FastPaymentMain {
 
     public static void main(String[] args) {
-
+        SpringApplication.run(FastPaymentMain.class, args);
     }
 }
