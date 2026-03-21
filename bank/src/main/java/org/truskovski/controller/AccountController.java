@@ -1,9 +1,12 @@
 package org.truskovski.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.truskovski.model.account.Account;
+import org.truskovski.model.deposit.dto.DepositDTO;
 import org.truskovski.service.AccountService;
+import org.truskovski.service.DepositService;
 
 import java.math.BigDecimal;
 
@@ -12,38 +15,35 @@ import java.math.BigDecimal;
 @RequiredArgsConstructor
 public class AccountController {
 
-    private final AccountService service;
+    private final AccountService accountService;
+    private final DepositService depositService;
 
     @GetMapping("/{id}")
-    public Account get(@PathVariable Long id) {
-        return service.get(id);
+    public ResponseEntity<Account> getById(@PathVariable Long id) {
+        return ResponseEntity.ok(accountService.get(id));
     }
 
     @GetMapping("/by-phone")
-    public Account getByPhone(@RequestParam String phone) {
-        return service.getByPhone(phone);
+    public ResponseEntity<Account> getByPhone(@RequestParam String phone) {
+        return ResponseEntity.ok(accountService.getByPhone(phone));
     }
 
-    @PostMapping("/validate-debit")
-    public void validateDebit(@RequestParam Long accountId,
-                              @RequestParam BigDecimal amount) {
-        service.validateDebit(accountId, amount);
+    @PostMapping("/deposit")
+    public ResponseEntity<String> deposit(@RequestBody DepositDTO request) {
+
+        depositService.deposit(
+                request.phone(),
+                request.amount()
+        );
+
+        return ResponseEntity.ok("Deposit successful");
     }
 
     @PostMapping("/debit")
-    public void debit(@RequestParam Long accountId,
-                      @RequestParam BigDecimal amount) {
-        service.debit(accountId, amount);
-    }
+    public ResponseEntity<String> debit(@RequestParam Long accountId,
+                                        @RequestParam BigDecimal amount) {
 
-    @PostMapping("/validate-credit")
-    public void validateCredit(@RequestParam Long accountId) {
-        service.validateCredit(accountId);
-    }
-
-    @PostMapping("/credit")
-    public void credit(@RequestParam Long accountId,
-                       @RequestParam BigDecimal amount) {
-        service.credit(accountId, amount);
+        accountService.debit(accountId, amount);
+        return ResponseEntity.ok("Debited");
     }
 }
