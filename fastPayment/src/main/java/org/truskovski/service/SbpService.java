@@ -12,12 +12,10 @@ import org.truskovski.model.bankparticipant.BankParticipant;
 import org.truskovski.model.bankparticipant.repository.BankParticipantRepository;
 import org.truskovski.model.transferRequest.dto.TransferRequestDTO;
 
-import java.util.Map;
 
 @RequiredArgsConstructor
-@RequestMapping("/sbp/transfer")
 @Slf4j
-@RestController
+@Service
 public class SbpService {
 
     private final BankStorageService storage;
@@ -25,8 +23,6 @@ public class SbpService {
     private final BankClient ourbankClient;
     private final BankParticipantRepository repository;
 
-
-    @PostMapping
     public ResponseEntity<String> processTransfer(@RequestBody TransferRequestDTO req) {
 
         log.info("Processing transfer request");
